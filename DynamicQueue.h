@@ -16,10 +16,14 @@ public:
 	DynamicQueue() {
 
 	}
-	DynamicQueue(int _size) :(size = _size) {
-		Vs.size(_size);
+	DynamicQueue(int _cap) {
+		cap = _cap;
+		f = 0;
+		r = -1;
+		size = 0;
+		Vs.resize(_cap);
 	}
-	void enque(T value) {
+	DynamicQueue<T>& enque(T value) {
 		if (isFull()) {
 			cap *= 2;
 			Vs.resize(cap);
@@ -28,6 +32,8 @@ public:
 		r = (r + 1) % cap;
 		Vs[r] = value;
 		size+=1;
+
+		return *this;
 	}
 	void dequeue() {
 		if (isEmpty()) {
